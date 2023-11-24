@@ -13,4 +13,4 @@ EXPOSE 8080
 
 COPY . .
 
-RUN spring-boot:run
+RUN mvn spring-boot:run
