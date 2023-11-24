@@ -11,6 +11,6 @@ FROM openjdk:17-jdk-slim
 
 EXPOSE 8080
 
-COPY . ./app
+COPY . .
 
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+RUN spring-boot:run
