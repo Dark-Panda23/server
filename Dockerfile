@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-slim AS build
+FROM ubuntu:latest AS MAVENBUILD
 
 RUN apt-get update
 RUN apt-get install openjdk-17-jdk -y
@@ -11,6 +11,6 @@ FROM openjdk:17-jdk-slim
 
 EXPOSE 8080
 
-COPY . .
+COPY --from=MAVENBUILD /target/untitled-1.0-SNAPSHOT.jar app.jar
 
-RUN mvn spring-boot:run
+ENTRYPOINT [ "java", "-jar", "app.jar" ]
