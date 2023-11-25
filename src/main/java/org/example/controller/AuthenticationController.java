@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @CrossOrigin
 public class AuthenticationController {
@@ -21,13 +24,18 @@ public class AuthenticationController {
     @PostMapping("/login")
     @CrossOrigin
     public ResponseEntity<?> createUser(@RequestBody User user) {
+        Map<String, Object> object = new HashMap<>();
         if (!userService.createUser(user)) {
             user.setMessage("Bad_request");
             user.setStatus(400);
-            return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
+            object.put("message", user.getMessage());
+            object.put("status", user.getStatus());
+            return new ResponseEntity<>(object, HttpStatus.BAD_REQUEST);
         }
         user.setMessage("OK");
         user.setStatus(200);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        object.put("message", user.getMessage());
+        object.put("status", user.getStatus());
+        return new ResponseEntity<>(object, HttpStatus.OK);
     }
 }
