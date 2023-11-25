@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.model.ResponseTransfer;
 import org.example.model.User;
 import org.example.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,14 @@ public class AuthenticationController {
     private UserServiceImpl userService;
 
     @PostMapping("/login")
+    @ResponseBody
     @CrossOrigin
-    public @ResponseBody Map<String, Object> createUser(@RequestBody User user) {
+    public ResponseEntity<?> createUser(@RequestBody User user) {
         Map<String, Object> object = new HashMap<>();
         if (!userService.createUser(user)) {
             user.setMessage("Bad_request");
             user.setStatus(400);
-            object.put("message", user.getMessage());
-            object.put("status", user.getStatus());
-            return object;
+            return ResponseEntity.ok().build();
         }
         user.setUsername(user.getUsername());
         user.setPassword(user.getPassword());
@@ -36,7 +36,7 @@ public class AuthenticationController {
         user.setStatus(200);
         object.put("message", user.getMessage());
         object.put("status", user.getStatus());
-        return object;
+        return ResponseEntity.ok().body(object);
     }
 
 /*let response = await fetch('https://backend-web-service-ovks.onrender.com/login', {
