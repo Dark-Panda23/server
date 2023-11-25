@@ -16,6 +16,10 @@ public class User {
     private String username;
     @Column(nullable=false)
     private String password;
+    @Transient
+    private int status;
+    @Transient
+    private String message;
 
     public User() {
     }
