@@ -37,6 +37,6 @@ public class AuthenticationController {
         user.setStatus(200);
         object.put("message", user.getMessage());
         object.put("status", user.getStatus());
-        return ResponseEntity.ok(object);
+        return ResponseEntity.ok().body(object);
     }
 }
