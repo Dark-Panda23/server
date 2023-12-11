@@ -19,15 +19,15 @@ public class AuthenticationController {
     @PostMapping("/login")
     @ResponseBody
     @CrossOrigin
-    public ResponseEntity<?> createUser(@RequestBody User user) {
+    public ResponseEntity<Object> createUser(@RequestBody User user) {
         Map<String, Object> object = new HashMap<>();
         if (!userService.createUser(user)) {
             user.setMessage("Bad_request");
             user.setStatus(400);
-            return ResponseEntity.ok().build();
+            object.put("message", user.getMessage());
+            object.put("status", user.getStatus());
+            return ResponseEntity.badRequest().body(object);
         }
-        user.setUsername(user.getUsername());
-        user.setPassword(user.getPassword());
         user.setMessage("OK");
         user.setStatus(200);
         object.put("message", user.getMessage());

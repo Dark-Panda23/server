@@ -20,9 +20,6 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
-        user.setUsername(user.getUsername());
-        user.setPassword(user.getPassword());
-
         userRepo.save(user);
 
         return true;
