@@ -3,11 +3,14 @@ package org.example.controller;
 import org.example.model.User;
 import org.example.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
 
 @RestController
 @CrossOrigin
@@ -26,13 +29,13 @@ public class AuthenticationController {
             user.setStatus(400);
             object.put("message", user.getMessage());
             object.put("status", user.getStatus());
-            return ResponseEntity.badRequest().body(object);
+            return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(object);
         }
         user.setMessage("OK");
         user.setStatus(200);
         object.put("message", user.getMessage());
         object.put("status", user.getStatus());
-        return ResponseEntity.ok().body(object);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(object);
     }
 
 /*let response = await fetch('https://backend-web-service-ovks.onrender.com/login', {
